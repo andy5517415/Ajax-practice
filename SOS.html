@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>臺中市警察局列管防空避難設備一覽表</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+     <!-- 使用ajax()需引用jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style type="text/css">
+
+/*美美的漸層色*/
+#div2{background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);}
+img{max-width: 100%}
+*{font-family: microsoft jhenghei;}
+
+
+</style>
+<!--jQuery+ajax導入公開資料Json-->
+<script>
+        jQuery(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "https://datacenter.taichung.gov.tw/swagger/OpenData/9b77e4a1-d057-4e25-b376-fe1d93e93255",
+                dataType: "json",
+                async: true,
+                success: function(arr) {
+                    console.log("success!");
+                    var i;
+                    var out = '<table class="table table-hover"> '+
+                            '<thead class="thead-dark"><tr><th scope="col">#</th>' +
+                            '<th scope="col">轄區分局</th>' +
+                            '<th scope="col">地下室數量</th>' +
+                            '<th scope="col">地下室容量(單位1 m2)</th></tr></thead><tbody>';
+            
+                    for(i = 0; i < arr.length; i++) {
+                        a=i+1;
+                        out += '<tr><th scope="row">' + a + '</th><td>' +
+                        arr[i].區域別 + "</td><td>" +
+                        arr[i].地下室數量 + "</td><td>" +
+                        arr[i].地下室容量 + "</td></tr>";
+                    }
+                    out += "</tbody></table>";
+                    document.getElementById("showData").innerHTML = out;
+                }
+            });
+        });
+
+    // 輸入查詢表格
+    (function(document) {
+  'use strict';
+
+  // 建立 LightTableFilter
+  var LightTableFilter = (function(Arr) {
+
+    var _input;
+
+    // 資料輸入事件處理函數
+    function _onInputEvent(e) {
+      _input = e.target;
+      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+      Arr.forEach.call(tables, function(table) {
+        Arr.forEach.call(table.tBodies, function(tbody) {
+          Arr.forEach.call(tbody.rows, _filter);
+        });
+      });
+    }
+
+    // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
+    function _filter(row) {
+      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    }
+
+    return {
+      // 初始化函數
+      init: function() {
+        var inputs = document.getElementsByClassName('light-table-filter');
+        Arr.forEach.call(inputs, function(input) {
+          input.oninput = _onInputEvent;
+        });
+      }
+    };
+  })(Array.prototype);
+
+  // 網頁載入完成後，啟動 LightTableFilter
+  document.addEventListener('readystatechange', function() {
+    if (document.readyState === 'complete') {
+      LightTableFilter.init();
+    }
+  });
+})(document);
+
+    </script>
+</head>
+<body>
+
+<!--這邊是網站介紹-->
+<header>
+<!--大螢幕jumbotron+網站導覽-->
+<div class="jumbotron" style="background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);">
+  <h1 class="display-4"><B>👮台中市警局資訊&交通資訊&防空避難👮‍♀️</h1>
+  <p class="lead"><B>🚓提供台中市警察局路口監視器、警察局服務據點、電話受理案件等案件資訊</p>
+  <p style="font-size: 12px;">📝1310934017李文勝服務導向期末報告</p>
+  <hr class="my-4">
+  <div class>
+  <a cbutton type="button" class="btn btn-danger mx-3" href="index.html" role="button" style="background:#f05f5c;color:white;padding: 9px 26px;border-radius: 20px;"
+  ><B>🏠臺中市警局路口監視器查詢</a>
+  <a class="btn mx-3" href="service.html" role="button" style="background:#0080FF;color:white;padding: 9px 26px;border-radius: 20px;"
+  ><B>🚨臺中市警局、派出所服務據點</a>
+  <a class="btn mx-3" href="road.html" role="button" style="background:#0080FF;color:white;padding: 9px 26px;border-radius: 20px;"
+  ><B>☎️臺中市府警局108年電話受理案件統計</a>
+  <a class="btn mx-3" href="SOS.html" role="button" style="background:#0080FF;color:white;padding: 9px 26px;border-radius: 20px;"
+  ><B>🆘臺中市警局列管防空避難設備一覽表</a>
+  </div>
+  </div>
+</header>
+
+<!-- containe把所有東西包起來兩側會空白-->
+<div class="container">
+  <h1 style="border-left:10px rgb( 255 140 105 ) solid;color: black;padding: 5px;">🆘臺中市警察局列管防空避難設備一覽表</h1>
+<!--搜尋-->
+
+<div class="alert alert-primary" role="alert">
+  請輸入以搜尋：<input type="search" class="light-table-filter my-4" data-table="table table-hover" placeholder="分局名">
+</div>
+<!--表格主體-->
+<div id="showData"></div>
+<div class="row">
+    <div class="col-md-6 text-center">
+        <div class="alert alert-warning" role="alert">
+        <strong>台中市區、西區、中區、東區、南區</strong>
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="alert alert-warning" role="alert">
+        <strong>台中市北屯區、西屯區、南屯區</strong>
+        </div>
+    </div>
+</div>
+<div class="row">    
+<iframe class="col-md-6" src="https://www.google.com/maps/d/embed?mid=1QTlJW03o_dVuYCOWw3hGbCRIviCdAmyf" width="640" height="480"></iframe>
+<iframe class="col-md-6" src="https://www.google.com/maps/d/embed?mid=1gEs9Am-UxXbrpHPuf5em53NDoyXEC5vn" width="640" height="480"></iframe>
+</div>
+
+<!--TOP回頂端-->
+<a class="btn mx-3" href="https://www.youtube.com/watch?v=9X1graZtuPs" role="button" id="" style="background:#02C874;color:white;padding: 9px 26px;border-radius: 20px; position: fixed;top:75%;right:5%;">TOP</a>
+<!--我是漢堡排菜單+fotter-->
+<br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+    <div class="fixed-bottom">
+        <div class="alert alert-primary" role="alert" style="margin: 0px">
+         點下面菜單觀看更多資訊
+        </div>
+    <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h5 class="text-white h4">歡迎光臨台中市路口監視器與警局各相關資訊網</h5>
+      <span class="text-muted">資應3A 1310934017 李文勝<br>andy5517415@gmail.com</span>
+    </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+     </nav>
+    </div>
+</footer>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+</body>
+</html>
