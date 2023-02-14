@@ -3,7 +3,7 @@
 #台中市路口監視器&警察局資訊網
 #JavaScript 、jQuery、Json
 
-大學個人報告
+資策會課程學習期間做的作品
 
 使用jQuery的 $.Ajax() 技術連接政府公開資料Json檔案的API，寫進部屬的網站裡頭，使用JavaScript輸入關鍵字即時查詢資料，並美化網頁。
 
